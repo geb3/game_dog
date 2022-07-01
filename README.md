@@ -1,5 +1,6 @@
 # Playing the dog
 Hunting for apples.
+
 ![](https://komarev.com/ghpvc/?username=your-github-username)
 
 Eat apples and score points. But not everything is so simple!
