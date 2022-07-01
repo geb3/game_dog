@@ -1,8 +1,8 @@
-<h3 align="center">Playing the dog</h3>
+<h1>Playing the dog</h1>
+#
+<h2>Hunting for apples</h2>
 
-Hunting for apples.
-
-![](https://komarev.com/ghpvc/?username=your-github-username)
+![](https://komarev.com/ghpvc/?username=your-geb3)
 
 Eat apples and score points. But not everything is so simple!
 
