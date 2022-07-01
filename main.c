@@ -33,12 +33,12 @@ int main() {
     int i;
     int x = 10, y = 5;
     int ox, oy, eox, eoy, eox1, eoy1, eox2, eoy2;
-    int ax = 4, ay = 5;
+    int ax = xrand(), ay = yrand();
     int ex = 5, ey = 6;
     int ex1 = 4, ey1 = 3, ex2 = 3, ey2 = 4;
     char key;
     int score = 0;
-    int enemy1 = 1, enemy2 = 4;
+    int enemy1 = 5, enemy2 = 10;
     do {
         sprintf(map[0], "|==========================================================|");
         for (i = 1; i < 19; i++) {
