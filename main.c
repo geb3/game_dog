@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <termios.h>
 
+
 int getch() {
     int ch;
     struct termios oldt, newt;
@@ -26,9 +27,18 @@ int yrand() {
     return rand() % 18 + 1;
 }
 
+int difficulty() {
+    char num = getc(stdin);
+    if (num == '1') return 3;
+    if (num == '2') return 2;
+    if (num == '3') return 1;
+    else difficulty();
+}
+
 #endif
 int main() {
     srand(time(NULL));
+    int diff = 0;
     char map[20][61];
     int i;
     int x = 10, y = 5;
@@ -51,13 +61,22 @@ int main() {
         map[ey][ex] = '#';
         if (score >= enemy1) map[ey1][ex1] = '#';
         if (score >= enemy2) map[ey2][ex2] = '#';
-
+    
         system("clear");
-        printf("\t\t\t  Score %d\n", score);
+        if (diff==3) printf(" Difficulty Easy\t  Score %d\n", score);
+        if (diff==2) printf(" Difficulty Middle\t  Score %d\n", score);
+        if (diff==1) printf(" Difficulty Hard\t  Score %d\n", score);
+        if (diff==0) printf("\t\t\t  Score %d\n", score);
+
         for (i = 0; i < 20; i++) printf("%s\n", map[i]);
-        printf("\tW: up, A: left, S: down, D: right, E: exit\n");
-        
+        printf("  W: up, A: left, S: down, D: right, Q: difficulty E: exit\n");
+        if (diff == 0) {
+            printf("\tDifficulty: 1 = easy, 2 = middle, 3 = hard\n");
+            diff = difficulty();
+        }
+
         key = getch();
+        if (key == 'q') diff=0;
         if (key == 'w') y--;
         if (key == 's') y++;
         if (key == 'a') x--;
@@ -83,14 +102,10 @@ int main() {
         eox2 = ex2; // сталкновения с полями
         eoy2 = ey2; // сталкновения с полями
 
-        if (x <= ex) ex--;
-        if (x >= ex) ex++;
-        if (y <= ey) ey--;
-        if (y >= ey) ey++;
-        if ( ((ey == ey1) && (ex == ex1)) || (ey == ey2) && (ex == ex2) ) {
-            ex = eox;
-            ey = eoy;
-        }
+        if (x < ex) ex-=diff;
+        if (x > ex) ex+=diff;
+        if (y < ey) ey-=diff;
+        if (y > ey) ey+=diff;
         if ((x == ex) && (y == ey)) {
             x = xrand();
             y = yrand();
@@ -98,13 +113,17 @@ int main() {
             ey = yrand();
             score=0;
         }
-
+        if ( ((ey == ey1) && (ex == ex1)) || ((ey == ey2) && (ex == ex2)) || ((map[ey][ex] == '|') || (map[ey][ex] == '=')) ) {
+            ex = eox;
+            ey = eoy;
+        }
+        
         if (score >= enemy1) {
-            if (x <= ex1) ex1--;
-            if (x >= ex1) ex1++;
-            if (y <= ey1) ey1--;
-            if (y >= ey1) ey1++;
-            if ( ((ey1 == ey) && (ex1 == ex)) || (ey1 == ey2) && (ex1 == ex2) ) {
+            if (x <= ex1) ex1-=diff;
+            if (x >= ex1) ex1+=diff;
+            if (y <= ey1) ey1-=diff;
+            if (y >= ey1) ey1+=diff;
+            if ( ((ey1 == ey) && (ex1 == ex)) || ((ey1 == ey2) && (ex1 == ex2)) || ((map[ey][ex] == '|') || (map[ey][ex] == '=')) ) {
                 ex1 = eox1;
                 ey1 = eoy1;
             }
@@ -118,11 +137,11 @@ int main() {
         }
         
         if (score >= enemy2) {
-            if (x <= ex2) ex2--;
-            if (x >= ex2) ex2++;
-            if (y <= ey2) ey2--;
-            if (y >= ey2) ey2++;
-            if ( ((ey2 == ey) && (ex2 == ex)) || (ey2 == ey1) && (ex2 == ex1) ) {
+            if (x <= ex2) ex2-=diff;
+            if (x >= ex2) ex2+=diff;
+            if (y <= ey2) ey2-=diff;
+            if (y >= ey2) ey2+=diff;
+            if ( ((ey2 == ey) && (ex2 == ex)) || ((ey2 == ey1) && (ex2 == ex1))  || ((map[ey][ex] == '|') || (map[ey][ex] == '='))) {
                 ex2 = eox2;
                 ey2 = eoy2;
             }
