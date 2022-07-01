@@ -1,6 +1,6 @@
-<h1>Playing the dog</h1>
+<h1>Dog vs Scavengers</h1>
 
-# Hunting for apples.
+Collect apples and not get caught by scavengers.
 
 ![](https://komarev.com/ghpvc/?username=your-geb3)
 
