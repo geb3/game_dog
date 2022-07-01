@@ -1,5 +1,5 @@
 <h1>Playing the dog</h1>
-#
+
 <h2>Hunting for apples</h2>
 
 ![](https://komarev.com/ghpvc/?username=your-geb3)
